@@ -7,11 +7,14 @@ from sqlalchemy import (
     Float,
     TIMESTAMP,
     Text,
-    create_engine
+    create_engine,
+    select
 )
 from sqlalchemy.ext.declarative import declarative_base
 
-
+'''
+Posible separación de responsabilidades de declaración de modelos y de inicio de la base de datos
+'''
 def get_postgres_uri():
     host = os.environ.get("DB_HOST", "postgres")
     port = 5432
@@ -31,7 +34,7 @@ engine = create_engine(
 )
 
 
-class Movie(Base):
+class movies(Base):
     __tablename__ = "movies"
 
     movie_id = Column(Integer, primary_key=True)
@@ -44,3 +47,7 @@ class Movie(Base):
 
 def start_mappers():
     Base.metadata.create_all(engine)
+
+
+
+
