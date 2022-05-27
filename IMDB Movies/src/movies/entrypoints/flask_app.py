@@ -10,6 +10,9 @@ models.start_mappers()
 def hello_world():
     return "Hello World!", 200
 
-@app.route("/moviesByMagicKey/<magicKey>/sorted=<sorted>", methods=["GET"])
-def get_movies(magicKey, sorted):
-    return json.dumps(movieOutput.getMovieByMagicKey(magicKey)), 200
+
+@app.route('/moviesByMagicKey/<magicKey>/', defaults={'rating': "True"})
+@app.route('/moviesByMagicKey/<magicKey>/rating=<rating>')
+def show(magicKey, rating):
+    return json.dumps(movieOutput.getMovieByMagicKey(magicKey, rating)), 200
+    pass
