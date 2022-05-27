@@ -5,8 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from bs4 import BeautifulSoup
 
-from movies.models import get_postgres_uri
-from movie_to_dictionary import store_csv_movie_data
+from models import get_postgres_uri
+#from movie_to_dictionary import store_csv_movie_data
 
 DEFAULT_SESSION_FACTORY = sessionmaker(
     bind=create_engine(
@@ -56,7 +56,14 @@ def main():
 
     # Storing the movie information
     # in a csv file
-    store_csv_movie_data(list)
-
+    #store_csv_movie_data(list)
+    print(list[1])
+    fields = ["preference_key", "movie_title", "star_cast", "rating", "year", "place", "vote", "link"]
+    with open("movie_results.csv", "w", newline="", encoding='ISO-8859-1') as file:
+        writer = csv.DictWriter(file, fieldnames=fields)
+        writer.writeheader()
+        for movie in list:
+            writer.writerow({**movie})
+    
 if __name__ == '__main__':
     main()
