@@ -9,15 +9,13 @@ def printMovieData():
             print(row['movie_title'], row['year'], row['rating'])
 
 
-def getMovieByMagicKey(magicKey):
+def getMovieByMagicKey(magicKey, sorting):
     movieList = []
-    with open('movie_results.csv', newline='') as csvfile:
+    with open('/src/movies/movie_results.csv', newline='', encoding='ISO-8859-1') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             if(row['preference_key'] == str(magicKey)):
                 movieList.append(row)
     return movieList
 
-""" jsonString = json.dumps(getMovieByMagicKey(1))
-print(jsonString) """
-print(getMovieByMagicKey(3))
+

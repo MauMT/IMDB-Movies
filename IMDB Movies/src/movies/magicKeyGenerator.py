@@ -25,8 +25,8 @@ class MagicKeyGenerator():
     def getCategories(self):
         return self.categories
 
-x = MagicKeyGenerator()
+""" x = MagicKeyGenerator()
 x.addCategory(3).addCategory(9).addCategory(7)
-print(x.getMagicKey())
+print(x.getMagicKey()) """
 
 
