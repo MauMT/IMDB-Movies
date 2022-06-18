@@ -10,7 +10,7 @@ class MagicKeyGenerator():
     
     def addCategory(self, category):
         if self.count > self.numberofcategoriesAllowed:
-            raise Exception("Cannot add more than 3 categories")
+            raise Exception("Cannot add more than " + self.numberofcategoriesAllowed + " categories")
         else:
             self.count += 1
             self.categories.append(category)
@@ -18,9 +18,9 @@ class MagicKeyGenerator():
             
     def getMagicKey(self):
         if self.categories.__len__() != self.numberofcategoriesAllowed:
-            raise Exception("Magic key must have 3 categories")
+            raise Exception("Magic key must have " + self.numberofcategoriesAllowed + " categories")
         else:
-            return (self.categories[0]*self.categories[1]*self.categories[2]%5)+1
+            return (self.categories[0] * self.categories[1] * self.categories[2] % 5) + 1
 
     def getCategories(self):
         return self.categories
