@@ -5,16 +5,25 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from bs4 import BeautifulSoup
 
-from models import get_postgres_uri
+#### -- Dependency Inversion & Interface Segregation --
+# Removed: from models import get_postgres_uri
+# to avoid dependency movie_fetcher --> models
+# Created UriInterface.py and can only access the method get_postgres_uri
+from UriInterface import UriInterface
+
+
 #from movie_to_dictionary import store_csv_movie_data
 
 DEFAULT_SESSION_FACTORY = sessionmaker(
     bind=create_engine(
-        get_postgres_uri(),
+        UriInterface.get_postgres_uri(),
         isolation_level="REPEATABLE READ",
     )
 )
 session = DEFAULT_SESSION_FACTORY()
+
+def __init__(self, u : UriInterface):
+    self.UriInterface = u
 
 
 def main():
