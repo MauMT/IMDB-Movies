@@ -54,16 +54,8 @@ def main():
                 "preference_key": index % 4 + 1}
         list.append(data)
 
-    # Storing the movie information
-    # in a csv file
-    #store_csv_movie_data(list)
-    print(list[1])
-    fields = ["preference_key", "movie_title", "star_cast", "rating", "year", "place", "vote", "link"]
-    with open("movie_results.csv", "w", newline="", encoding='ISO-8859-1') as file:
-        writer = csv.DictWriter(file, fieldnames=fields)
-        writer.writeheader()
-        for movie in list:
-            writer.writerow({**movie})
+    
+    
     
 if __name__ == '__main__':
     main()
