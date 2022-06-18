@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 import os
 from sqlalchemy import (
     MetaData,
@@ -12,21 +11,14 @@ from sqlalchemy import (
     select
 )
 from sqlalchemy.ext.declarative import declarative_base
-from UriInterface import UriInterface
+from UriPostgres import PostgresURI
 
 '''
 Posible separación de responsabilidades de declaración de modelos y de inicio de la base de datos
 '''
 
-
-class PostgresURI(UriInterface):
-    def get_postgres_uri():
-        host = os.environ.get("DB_HOST", "postgres")
-        port = 5432
-        password = os.environ.get("DB_PASS", "abc123")
-        user, db_name = "movies", "movies"
-        return f"postgresql://{user}:{password}@{host}:{port}/{db_name}"
-
+## -- Single Responsibility
+# Separated the class UriPostgres.py from models
 
 Base = declarative_base(
     metadata=MetaData(),
