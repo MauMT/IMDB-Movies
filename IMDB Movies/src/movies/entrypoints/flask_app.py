@@ -14,5 +14,8 @@ def hello_world():
 @app.route('/moviesByMagicKey/<magicKey>/', defaults={'rating': "True"})
 @app.route('/moviesByMagicKey/<magicKey>/rating=<rating>')
 def show(magicKey, rating):
-    return json.dumps(movieOutput.getMovieByMagicKey(magicKey, rating)), 200
+    if (int(magicKey) >  4 or int(magicKey) < 1 ):
+        return "Magic Key must be between 1 and 4", 400
+    else:
+        return json.dumps(movieOutput.getMovieByMagicKey(magicKey, rating)), 200
     pass
