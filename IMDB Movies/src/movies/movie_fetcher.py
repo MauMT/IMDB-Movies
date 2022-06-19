@@ -5,16 +5,28 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from bs4 import BeautifulSoup
 
-from movies.models import get_postgres_uri
-from movie_to_dictionary import store_csv_movie_data
+#### -- Dependency Inversion & Interface Segregation --
+# Removed: from models import get_postgres_uri
+# to avoid dependency movie_fetcher --> models
+# Created UriInterface.py and can only access the method get_postgres_uri
+from UriInterface import UriInterface
 
-DEFAULT_SESSION_FACTORY = sessionmaker(
-    bind=create_engine(
-        get_postgres_uri(),
-        isolation_level="REPEATABLE READ",
-    )
-)
-session = DEFAULT_SESSION_FACTORY()
+from movie_to_dictionary import SimpleExporterFactory
+
+
+#from movie_to_dictionary import store_csv_movie_data
+
+# DEFAULT_SESSION_FACTORY = sessionmaker(
+#     bind=create_engine(
+#         UriInterface.get_postgres_uri(),
+#         isolation_level="REPEATABLE READ",
+#     )
+# )
+# session = DEFAULT_SESSION_FACTORY()
+
+def __init__(self, u : UriInterface, factory : SimpleExporterFactory):
+    self.UriInterface = u
+    self.factory = factory
 
 
 def main():
@@ -54,9 +66,8 @@ def main():
                 "preference_key": index % 4 + 1}
         list.append(data)
 
-    # Storing the movie information
-    # in a csv file
-    store_csv_movie_data(list)
+    exporter = SimpleExporterFactory.createExporter('csv')
+    exporter.save(list)
 
 if __name__ == '__main__':
     main()
