@@ -25,6 +25,7 @@ def getMovieByMagicKey(magicKey, rating):
         for row in reader:
             if(row['preference_key'] == str(magicKey)):
                 movieList.append(row)
-    return sorted(movieList, key=itemgetter('rating'), reverse = rating)
+        top10Movies = sorted(movieList, key=itemgetter('rating'), reverse=rating)
+    return top10Movies[:10]
     
 
